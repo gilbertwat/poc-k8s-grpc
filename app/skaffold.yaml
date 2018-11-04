@@ -1,0 +1,10 @@
+apiVersion: skaffold/v1alpha5
+kind: Config
+build:
+  artifacts: 
+  - image: gogovan.hk/poc/go-app
+    context: ./
+deploy:
+  kubectl:
+    manifests:
+      - ./k8s/*

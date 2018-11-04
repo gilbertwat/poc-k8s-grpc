@@ -7,4 +7,3 @@ RUN go build -o /app .
 FROM alpine:3.7
 CMD ["./app"]
 COPY --from=builder /app .
-EXPOSE 8080
