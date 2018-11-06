@@ -13,15 +13,6 @@ spec:
       name: web
   selector:
     app: web
-  containers:
-    - name: web
-      image: gogovan.hk/poc/web
-      ports:
-      - containerPort: 8080
-    - name: sidecar
-      image: gogovan.hk/poc/sidecar
-      ports:
-      - containerPort: 9911
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -44,7 +35,6 @@ spec:
         image: gogovan.hk/poc/web
         ports:
         - containerPort: 8080
-      containers:
       - name: sidecar
         image: gogovan.hk/poc/sidecar
         ports:
