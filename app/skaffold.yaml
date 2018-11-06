@@ -2,8 +2,10 @@ apiVersion: skaffold/v1alpha5
 kind: Config
 build:
   artifacts: 
-  - image: gogovan.hk/poc/go-app
-    context: ./
+  - image: gogovan.hk/poc/web
+    context: ./web
+  - image: gogovan.hk/poc/sidecar
+    context: ./sidecar
 deploy:
   kubectl:
     manifests:

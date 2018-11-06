@@ -1,37 +1,51 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: app
+  name: web
   labels:
-    app: app
+    app: web
 spec:
   type: NodePort
   ports:
     - port: 8080
       targetPort: 8080
       protocol: TCP
-      name: app
+      name: web
   selector:
-    app: app
+    app: web
+  containers:
+    - name: web
+      image: gogovan.hk/poc/web
+      ports:
+      - containerPort: 8080
+    - name: sidecar
+      image: gogovan.hk/poc/sidecar
+      ports:
+      - containerPort: 9911
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
+  name: web-deployment
   labels:
-    app: app
+    app: web
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: app
+      app: web
   template:
     metadata:
       labels:
-        app: app
+        app: web
     spec:
       containers:
-      - name: go-app
-        image: gogovan.hk/poc/go-app
+      - name: web
+        image: gogovan.hk/poc/web
         ports:
         - containerPort: 8080
+      containers:
+      - name: sidecar
+        image: gogovan.hk/poc/sidecar
+        ports:
+        - containerPort: 9911
